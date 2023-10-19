@@ -1,0 +1,46 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <cstring>
+#define d 10
+using namespace std;
+
+void rabin(char * pattern,char * text, int q){
+    int patt_len=strlen(pattern);
+    int txt_len=strlen(text);
+    int i,j,p=0,t=0,h=1;
+   
+    for(i=0;i<patt_len;i++){
+        p=(d*p+pattern[i])%q;
+        t=(d*t+text[i])%q;
+    }
+   
+    for(i=0;i<txt_len-patt_len;i++){
+        if(p==t){
+            for(j=0;j<patt_len;j++){
+                if(text[i+j]!=pattern[j])
+                break;
+            }
+            if(j==patt_len)
+            cout<<"Pattern Found "<< i+1<<endl;
+           
+        }
+            if(i< txt_len-patt_len){
+                t=(d*(t-text[i]*h)+text[i+patt_len])%q;
+                if(t<0)
+                t=t+q;
+            }
+       
+    }
+    //cout<<"Not found";
+   
+   
+}
+
+int main() {
+    char patt[]="aba";
+    char txt[]="abcbbabeabac";
+    int q=13;
+    rabin(patt,txt,q);
+
+    return 0;
+}
