@@ -1,0 +1,50 @@
+
+#include <iostream>
+using namespace std;
+# define nchar 256 
+void badChar( string str, int size, 
+						int badchar[nchar]) 
+{ 
+	int i; 
+	for (i = 0; i < nchar; i++) 
+		badchar[i] = -1; 
+	for (i = 0; i < size; i++) 
+		badchar[(int) str[i]] = i; 
+} 
+
+void search( string text, string pattern) 
+{ 
+	int m = pattern.size(); 
+	int n = text.size(); 
+	int badchar[nchar]; 
+	badChar(pattern, m, badchar); 
+
+	int s = 0; 
+	while(s <= (n - m)) 
+	{ 
+		int j = m - 1; 
+
+		
+		while(j >= 0 && pattern[j] == text[s + j]) 
+			j--; 
+
+		if (j < 0) 
+		{ 
+			cout << "pattern found"; 
+		    break;
+		} 
+
+		else
+			s =s+j-badchar[text[s=j]];
+	} 
+} 
+
+/* Driver code */
+int main() 
+{ 
+	string text= "TRUSTHARDTOOTHBRUSHES"; 
+	string pattern = "TOOTH"; 
+	search(text, pattern); 
+	return 0; 
+} 
+
